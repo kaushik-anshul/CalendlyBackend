@@ -1,10 +1,12 @@
 import {app} from "./app.js";
+import { connectDatabase } from "./config/database.js";
 import { PORT } from "./config/env.js";
 
-export function startServer() {
+async function startServer() {
+    await connectDatabase();
     app.listen(PORT, ()=> {
-        console.log(`[SERVER] is running on Port : ${PORT}`);
+        console.log(`[Server] is running on Port : ${PORT}`);
     });
 }
 
-startServer();
+startServer().catch((err) => console.error("[Server] failed to start", err))
