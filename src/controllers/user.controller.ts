@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { findAllUsers as findAllUsersService, findById as findByIdService} from "../services/user.service.js";
+import { createUser as createUserService, findAllUsers as findAllUsersService, findById as findByIdService} from "../services/user.service.js";
 import { sendSuccess } from "../utils/api-response.js";
 
 export async function findAllUsers(_req : Request, res : Response) {
@@ -15,6 +15,6 @@ export async function findById(req : Request, res : Response) {
 
 
 export async function createUser(req : Request , res: Response) {
-    console.log(req.body);
-    return res.json({});
+    const newUser = await createUserService(req.body);
+    sendSuccess(res, newUser, 201, 'User created successfully');
 }
