@@ -1,0 +1,19 @@
+import { Response } from "express"
+
+interface successPayload<T> {
+success : true;
+    data : T;
+    message?: string;
+}
+
+export function sendSuccess <T> (res : Response, data : T, statuscode = 200, message? : string) : void {
+    const body : successPayload <T> = {
+        success : true,
+        data
+    }
+    
+    if(message) body.message = message;
+
+    res.status(statuscode).json(body);
+
+}
